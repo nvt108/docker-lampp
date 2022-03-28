@@ -21,6 +21,7 @@
 ## Use
 - Access to url: http://lampp.local
 - Database management: http://localhost:8080
+    + HostName: lampp_mysql
     + Database user: lampp
     + Database pass: lampp
     + Root password: root
