@@ -5,7 +5,8 @@
 - PHP 7.4
 - MySQL 5.7 (from image mysql:5.7)
 - Adminer (from image adminer)
-Development tools
+
+## Development tools
 - Gulp
 - Bower
 - Git
