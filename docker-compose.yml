@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  lampp:
+    build:
+      ./
+    container_name: lampp
+    networks:
+      - lampp_networks
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+    - ./:/var/www/html
+    - ./mysql:/var/lib/mysql
+    - ./config/lampp.sql:/docker-entrypoint-initdb.d/lampp.sql
+  mysql:
+    platform: linux/x86_64
+    image: mysql:5.7
+    container_name: lampp_mysql
+    command: 'mysqld --sql_mode="" --default-authentication-plugin=mysql_native_password'
+    networks:
+      - lampp_networks
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/:/var/lib/mysql
+      #- ./config/lampp.sql:/docker-entrypoint-initdb.d/lampp.sql
+    environment:
+      - MYSQL_DATABASE=lampp_db
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=lampp
+      - MYSQL_PASSWORD=lampp
+  adminer:
+    image: adminer
+    container_name: lampp_adminer
+    ports:
+      - 8080:8080
+    networks:
+      - lampp_networks
+networks:
+  lampp_networks:
+    driver: bridge
